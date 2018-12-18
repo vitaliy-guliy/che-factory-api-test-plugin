@@ -22,15 +22,15 @@ export function start(context: theia.PluginContext) {
         label: "[TEST] Get factory by ID"
     };
     context.subscriptions.push(theia.commands.registerCommand(testGetFactoryById, async (...args: any[]) => {
-        let factoryId = 'factory27207ot86qyvtva1_';
-        theia.window.showInformationMessage(`>> get Factory with ID ${factoryId}`);
+        let factoryId = 'factory27207ot86qyvtva1';
+        theia.window.showInformationMessage(`Get Factory with ID ${factoryId}`);
 
         try {
-            const result = await che.factory.getFactory(factoryId);
+            const result: che.Factory = await che.factory.getById(factoryId);
             console.log('factory ', result);
 
         } catch (eee) {
-            console.log('EEE ERROR ', eee);
+            console.log('ERROR ', eee);
         }
     }));
 }
