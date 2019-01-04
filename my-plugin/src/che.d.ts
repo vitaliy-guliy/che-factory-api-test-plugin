@@ -267,7 +267,11 @@ declare module '@eclipse-che/plugin' {
 
     }
 
+    /**
+     * Defines the contract for the factory action instance.
+     */
     export interface FactoryAction {
+
         /** IDE specific identifier of action e.g. ('openFile', 'editFile') */
         id: string,
 
@@ -278,6 +282,7 @@ declare module '@eclipse-che/plugin' {
             greetingTitle?: string,
             greetingContentUrl?: string
         }
+
     }
 
     /**
