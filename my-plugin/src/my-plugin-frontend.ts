@@ -22,6 +22,7 @@ export function start(c: theia.PluginContext) {
     theia.window.showInformationMessage('Test Workspace: ' + testWorkspaceID);
 
     testGetCurrentWorkspace();
+    testGetAllWorkspaces();
 
     testGetWorkspaceById();
     testAddServersToWorkspace();
@@ -46,6 +47,19 @@ function testGetCurrentWorkspace() {
     }));
 }
 
+function testGetAllWorkspaces() {
+    const command = {
+        id: 'test-get-all-workspaces',
+        label: "[TEST] Get All Workspaces"
+    };
+
+    context.subscriptions.push(theia.commands.registerCommand(command, (...args: any[]) => {
+        che.workspace.getAll().then(workspaces => {
+            console.log('workspaces ', workspaces);
+        });
+    }));
+}
+
 function testGetWorkspaceById() {
     const command = {
         id: 'test-get-workspace-by-id',
@@ -53,12 +67,10 @@ function testGetWorkspaceById() {
     };
 
     context.subscriptions.push(theia.commands.registerCommand(command, (...args: any[]) => {
-
         che.workspace.getById(testWorkspaceID).then(w => {
             console.log('workspace ', w);
             workWS = w;
         });
-
     }));
 }
 
