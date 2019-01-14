@@ -2,7 +2,19 @@
 # yarn lockfile v1
 
 
-"@theia/plugin-packager@latest":
+"@eclipse-che/api@^6.16.1":
+  version "6.16.1"
+  resolved "https://registry.yarnpkg.com/@eclipse-che/api/-/api-6.16.1.tgz#5b5e70285cf27d525df3752c938388e36f7925d6"
+  integrity sha512-goL54uxAyRTrVMdRVmxgbvm73+8xDGq85X64Q+cVkQsylIkyq0BJHApWhKo4Le+DQSwgWJzIjf0fagX3LlmyJw==
+
+"@eclipse-che/plugin@latest":
+  version "0.0.1-1547221824"
+  resolved "https://registry.yarnpkg.com/@eclipse-che/plugin/-/plugin-0.0.1-1547221824.tgz#277e84bb25aceec2bf0aab600d74502b634c048a"
+  integrity sha512-l/1Y9pqu8O2jKJGQDeevlSa8STlSNSD94Z1xSUXm8iUo3UEYtXHhXVfC7u6GupfOLCNvz5UpNNDx0DRy4jvLCw==
+  dependencies:
+    "@eclipse-che/api" "^6.16.1"
+
+"@theia/plugin-packager@^0.0.1-1539891078":
   version "0.0.1-1539891078"
   resolved "https://registry.yarnpkg.com/@theia/plugin-packager/-/plugin-packager-0.0.1-1539891078.tgz#9ebfd281e655621f835bcb3a176d517ab2a5d613"
   integrity sha512-xSxx3SFCwvVWjIk6wYMTrYBfFmJ8Pn3OBLFkAWaSy1UDoSaOvYniXDPvncWKEKVCLCvNDZDqyhzjwDrSODY/lw==
@@ -15,9 +27,9 @@
     yargs "12.0.1"
 
 "@theia/plugin@next":
-  version "0.4.0-next.b52900e6"
-  resolved "https://registry.yarnpkg.com/@theia/plugin/-/plugin-0.4.0-next.b52900e6.tgz#1e29b1445961ea584829c853cacefcda7a0579ec"
-  integrity sha512-ocyB9/iYLOY6lLtF0U1P+es7dYCcxhHbowgjl+OEPVgNtGqrZyIGdm62mA9+MALWuOmeywyxSF/hdeHXRNp6JA==
+  version "0.4.0-next.d1410f75"
+  resolved "https://registry.yarnpkg.com/@theia/plugin/-/plugin-0.4.0-next.d1410f75.tgz#01b81d80c35c14804bcf6697ea176e46b8b337d3"
+  integrity sha512-znovfFmJUJ8tTbz+JvH1xShwZr7eYofkVYiAsKYZzw6aUOCYo7YTdI+zPgkwRNiV32LrDWLUft1mY07Kl1RhMg==
 
 "@types/events@*":
   version "1.2.0"

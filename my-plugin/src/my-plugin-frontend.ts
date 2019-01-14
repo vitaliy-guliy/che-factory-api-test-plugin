@@ -4,17 +4,22 @@
  */
 
 import * as theia from '@theia/plugin';
+
 import * as che from '@eclipse-che/plugin';
+import { che as cheApi } from '@eclipse-che/api';
 
 let context: theia.PluginContext;
 
-const wsID = 'workspacecutmcf2ut3ftiodx';
-let workWS: che.Workspace | undefined = undefined;
+const testWorkspaceID = 'workspacecutmcf2ut3ftiodx';
+// let testFactoryID = 'factoryvin9eq6960ppie96';
+let testFactoryID = 'factoryeqgl3njxrn37z5eq';
+
+let workWS: cheApi.workspace.Workspace | undefined = undefined;
 
 export function start(c: theia.PluginContext) {
     context = c;
 
-    theia.window.showInformationMessage('My Test Plugin!');
+    theia.window.showInformationMessage('Test Workspace: ' + testWorkspaceID);
 
     testGetCurrentWorkspace();
 
@@ -48,10 +53,12 @@ function testGetWorkspaceById() {
     };
 
     context.subscriptions.push(theia.commands.registerCommand(command, (...args: any[]) => {
-        che.workspace.getById(wsID).then(w => {
+
+        che.workspace.getById(testWorkspaceID).then(w => {
             console.log('workspace ', w);
             workWS = w;
         });
+
     }));
 }
 
@@ -69,31 +76,32 @@ function testAddServersToWorkspace() {
             return;
         }
 
-        console.log('>> process workspace ' + workWS.config.name);
+        console.log('>> process workspace ' + workWS.config!.name);
 
-        const out = theia.window.createOutputChannel('Process ' + workWS.config.name);
+        const out = theia.window.createOutputChannel('Process ' + workWS.config!.name);
         out.show(true);
         out.appendLine('Hello!');
         out.appendLine(' ');
 
-        let environments = workWS.config.environments;
-        for (let env in environments) {
+        let environments = workWS.config!.environments;
+        for (let env in environments!) {
             out.appendLine('> environment: ' + env);
 
             try {
-                const environment = environments[env];
+                const environment = environments![env];
                 const machines = environment.machines;
 
-                for (let m in machines) {
+                for (let m in machines!) {
                     out.appendLine('    > machine: ' + m);
-                    const machine = machines[m];
-                    const servers = machine.servers;
+                    const machine = machines![m];
+                    const servers = machine.servers!;
 
-                    const server = {
+                    const server: cheApi.workspace.ServerConfig = {
                         attributes: {},
                         protocol: 'http',
-                        port: 222
+                        port: '100500'
                     };
+
                     servers['test-server'] = server;
                 }
 
@@ -122,8 +130,8 @@ function testUpdateWorkspace() {
             return;
         }
 
-        che.workspace.update(wsID, workWS).then(() => {
-            theia.window.showInformationMessage('>> Workspace updated: ' + wsID);
+        che.workspace.update(testWorkspaceID, workWS).then(() => {
+            theia.window.showInformationMessage('>> Workspace updated: ' + testWorkspaceID);
         });
 
     }));
@@ -136,15 +144,14 @@ function testGetFactoryById() {
     };
 
     context.subscriptions.push(theia.commands.registerCommand(command, async (...args: any[]) => {
-        let factoryId = 'factoryvin9eq6960ppie96';
-        theia.window.showInformationMessage(`Get Factory with ID ${factoryId}`);
-
         try {
-            const result: che.Factory = await che.factory.getById(factoryId);
+            const result: cheApi.factory.Factory = await che.factory.getById(testFactoryID);
             console.log('factory ', result);
+            theia.window.showInformationMessage('Factory received');
 
         } catch (eee) {
             console.log('ERROR ', eee);
+            theia.window.showErrorMessage('Unable to get a factory by ID ' + testFactoryID);
         }
     }));
 }
